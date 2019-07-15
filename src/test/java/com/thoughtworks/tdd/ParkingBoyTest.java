@@ -161,7 +161,8 @@ public class ParkingBoyTest {
 
         parkingBoy.park(car);
 
-        assertThat(parkingBoy.fetch(null).getMessage(), is("Please provide your parking ticket."));
+        Exception nullTicketException = Assertions.assertThrows(NullTicketException.class,()->parkingBoy.fetch(null));
+        assertSame("Please provide your parking ticket.", nullTicketException.getMessage());
     }
 
     @Test

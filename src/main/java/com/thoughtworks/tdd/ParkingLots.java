@@ -75,6 +75,7 @@ public class ParkingLots {
         if (ticket == null) {
             getCarResult.setCar(null);
             getCarResult.setMessage("Please provide your parking ticket.");
+            throw new WrongTicketException("Please provide your parking ticket.");
         } else {
             ParkingLot parkingLot = parkinglots.get(ticket.getParkingLotId());
             if (parkingLot.getServiceManager() == serviceManager) {
@@ -100,6 +101,7 @@ public class ParkingLots {
         if (ticket == null) {
             getCarResult.setCar(null);
             getCarResult.setMessage("Please provide your parking ticket.");
+            throw new NullTicketException("Please provide your parking ticket.");
         } else {
             ParkingLot parkingLot = parkinglots.get(ticket.getParkingLotId());
             Car car = parkingLot.getParkingCarTicket().get(ticket);
