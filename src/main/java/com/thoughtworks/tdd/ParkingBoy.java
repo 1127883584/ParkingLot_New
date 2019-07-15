@@ -1,5 +1,7 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.exception.WrongTicketException;
+
 public class ParkingBoy {
     private ParkingLots parkingLots;
     private String id;
@@ -27,7 +29,7 @@ public class ParkingBoy {
         return parkCarResult;
     }
 
-    public GetCarResult fetch(Ticket ticket){
+    public GetCarResult fetch(Ticket ticket) throws WrongTicketException {
         GetCarResult getCarResult = parkingLots.getCar(ticket);
         return getCarResult;
     }

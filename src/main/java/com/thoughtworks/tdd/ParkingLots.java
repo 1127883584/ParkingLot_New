@@ -1,6 +1,7 @@
 package com.thoughtworks.tdd;
 
 import java.lang.reflect.Array;
+import com.thoughtworks.exception.*;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -87,7 +88,7 @@ public class ParkingLots {
         return getCarResult;
     }
 
-    public GetCarResult getCar(Ticket ticket) {
+    public GetCarResult getCar(Ticket ticket) throws WrongTicketException {
         GetCarResult getCarResult = new GetCarResult();
         if (ticket == null) {
             getCarResult.setCar(null);
@@ -97,7 +98,8 @@ public class ParkingLots {
             Car car = parkingLot.getParkingCarTicket().get(ticket);
             getCarResult.setCar(car);
             if (car == null) {
-                getCarResult.setMessage("Unrecognized parking ticket.");
+//                getCarResult.setMessage("Unrecognized parking ticket.");
+                throw new WrongTicketException("Unrecognized parking ticket.");
             } else {
                 parkingLot.getParkingCarTicket().remove(ticket);
                 getCarResult.setMessage("Success fetch the car.");

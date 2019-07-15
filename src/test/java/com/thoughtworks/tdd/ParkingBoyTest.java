@@ -1,5 +1,6 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.exception.WrongTicketException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ParkingBoyTest {
     @Test
-    public void should_return_car_when_park_car_to_parking_lot_then_get_it_back() {
+    public void should_return_car_when_park_car_to_parking_lot_then_get_it_back() throws Exception {
         //given
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
@@ -26,7 +27,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_multiple_cars_when_use_correspond_ticket() {
+    public void should_multiple_cars_when_use_correspond_ticket() throws Exception {
         //given
         Car firstCar = new Car();
         Car secondCar = new Car();
@@ -47,7 +48,7 @@ public class ParkingBoyTest {
     }
 //
     @Test
-    public void should_not_fetch_car_when_ticket_is_wrong() {
+    public void should_not_fetch_car_when_ticket_is_wrong() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
         Car car = new Car();
@@ -58,11 +59,11 @@ public class ParkingBoyTest {
         //when
         parkingBoy.park(car);
 
-        assertSame(null, parkingBoy.fetch(wrongTicket).getCar());
+        Assertions.assertThrows(WrongTicketException.class,()->parkingBoy.fetch(wrongTicket));
     }
 
     @Test
-    public void should_not_fetch_when_ticket_has_been_used() {
+    public void should_not_fetch_when_ticket_has_been_used() throws Exception {
         //given
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
@@ -74,7 +75,7 @@ public class ParkingBoyTest {
         Ticket ticket = parkingBoy.park(car).getTicket();
         parkingBoy.fetch(ticket);
 
-        assertSame(null, parkingBoy.fetch(ticket).getCar());
+        Assertions.assertThrows(WrongTicketException.class,()->parkingBoy.fetch(ticket));
     }
 
     @Test
@@ -118,7 +119,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_error_message_when_ticket_is_wrong() {
+    public void should_return_error_message_when_ticket_is_wrong() throws WrongTicketException {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
         Car car = new Car();
@@ -128,11 +129,12 @@ public class ParkingBoyTest {
         Ticket ticket = new Ticket(0);
         parkingBoy.park(car);
 
-        assertThat(parkingBoy.fetch(ticket).getMessage(), is("Unrecognized parking ticket."));
+        Exception wrongTicketException = Assertions.assertThrows(WrongTicketException.class,()->parkingBoy.fetch(ticket));
+        assertSame("Unrecognized parking ticket.", wrongTicketException.getMessage());
     }
 
     @Test
-    public void should_return_error_message_when_ticket_has_been_used() {
+    public void should_return_error_message_when_ticket_has_been_used() throws Exception{
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
         Car car = new Car();
@@ -142,11 +144,12 @@ public class ParkingBoyTest {
         Ticket ticket = parkingBoy.park(car).getTicket();
         parkingBoy.fetch(ticket);
 
-        assertThat(parkingBoy.fetch(ticket).getMessage(), is("Unrecognized parking ticket."));
+        Exception wrongTicketException = Assertions.assertThrows(WrongTicketException.class,()->parkingBoy.fetch(ticket));
+        assertSame("Unrecognized parking ticket.", wrongTicketException.getMessage());
     }
 
     @Test
-    public void should_return_error_message_when_not_provide_ticket() {
+    public void should_return_error_message_when_not_provide_ticket() throws Exception{
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
         Car car = new Car();
