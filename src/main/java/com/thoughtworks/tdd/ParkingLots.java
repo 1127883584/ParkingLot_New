@@ -28,7 +28,8 @@ public class ParkingLots {
                 } else {
                     if (car == null || parkingLot.getParkingCarTicket().containsValue(car)) {
                         parkCarResult.setTicket(null);
-                        parkCarResult.setMessage("Car not park a parked car or park a null car.");
+                        parkCarResult.setMessage("Can not park a parked car or park a null car.");
+                        throw new ParkErrorCarException("Can not park a parked car or park a null car.");
                     } else {
                         Ticket ticket = new Ticket(key);
                         parkingLot.getParkingCarTicket().put(ticket, car);
@@ -55,7 +56,8 @@ public class ParkingLots {
             } else {
                 if (car == null || parkingLot.getParkingCarTicket().containsValue(car)) {
                     parkCarResult.setTicket(null);
-                    parkCarResult.setMessage("Car not park a parked car or park a null car.");
+                    parkCarResult.setMessage("Can not park a parked car or park a null car.");
+                    throw new ParkErrorCarException("Can not park a parked car or park a null car.");
                 } else {
                     Ticket ticket = new Ticket(key);
                     parkingLot.getParkingCarTicket().put(ticket, car);
@@ -130,8 +132,8 @@ public class ParkingLots {
             } else {
                 if (car == null || parkingLot.getParkingCarTicket().containsValue(car)) {
                     parkCarResult.setTicket(null);
-                    parkCarResult.setMessage("Car not park a parked car or park a null car.");
-                    return parkCarResult;
+                    parkCarResult.setMessage("Can not park a parked car or park a null car.");
+                    throw new ParkErrorCarException("Can not park a parked car or park a null car.");
                 }
             }
         }
@@ -161,8 +163,8 @@ public class ParkingLots {
             } else {
                 if (car == null || parkingLot.getParkingCarTicket().containsValue(car)) {
                     parkCarResult.setTicket(null);
-                    parkCarResult.setMessage("Car not park a parked car or park a null car.");
-                    return parkCarResult;
+                    parkCarResult.setMessage("Can not park a parked car or park a null car.");
+                    throw new ParkErrorCarException("Can not park a parked car or park a null car.");
                 }
             }
         }

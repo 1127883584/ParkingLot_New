@@ -106,7 +106,8 @@ public class ParkingBoyTest {
         //when
         parkingBoy.park(car);
 
-        assertSame(null, parkingBoy.park(car).getTicket());
+        Exception parkErrorCarException = Assertions.assertThrows(ParkErrorCarException.class,()->parkingBoy.park(car));
+        assertSame("Can not park a parked car or park a null car.", parkErrorCarException.getMessage());
     }
 
     @Test
@@ -116,7 +117,8 @@ public class ParkingBoyTest {
         ParkingLots parkingLots = new ParkingLots(parkingLotArray);
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots, "EL0315");
 
-        assertSame(null, parkingBoy.park(null).getTicket());
+        Exception parkErrorCarException = Assertions.assertThrows(ParkErrorCarException.class,()->parkingBoy.park(null));
+        assertSame("Can not park a parked car or park a null car.", parkErrorCarException.getMessage());
     }
 
     @Test
