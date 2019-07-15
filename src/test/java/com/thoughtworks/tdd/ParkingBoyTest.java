@@ -1,6 +1,6 @@
 package com.thoughtworks.tdd;
 
-import com.thoughtworks.exception.WrongTicketException;
+import com.thoughtworks.exception.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -79,22 +79,23 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_not_park_car_when_parking_lot_capacity_is_full() {
+    public void should_not_park_car_when_parking_lot_capacity_is_full() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
         ParkingLots parkingLots = new ParkingLots(parkingLotArray);
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots, "EL0315");
-        for(int i = 0; i < 10; i ++) {
+        for(int i = 0; i < 5; i ++) {
             Car car = new Car();
             parkingBoy.park(car);
         }
         Car overflowCar = new Car();
 
-        assertSame(null, parkingBoy.park(overflowCar).getTicket());
+        Exception ParkingLotNotPositionException = Assertions.assertThrows(ParkingLotNotPositionException.class,()->parkingBoy.park(overflowCar));
+        assertSame("Not enough position.", ParkingLotNotPositionException.getMessage());
     }
 
     @Test
-    public void should_not_park_car_when_park_a_parked_car() {
+    public void should_not_park_car_when_park_a_parked_car() throws Exception {
         //given
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
@@ -109,7 +110,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_not_park_car_when_park_a_null_car(){
+    public void should_not_park_car_when_park_a_null_car() throws Exception{
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
         ParkingLots parkingLots = new ParkingLots(parkingLotArray);
@@ -119,7 +120,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_error_message_when_ticket_is_wrong() throws WrongTicketException {
+    public void should_return_error_message_when_ticket_is_wrong() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
         Car car = new Car();
@@ -162,7 +163,7 @@ public class ParkingBoyTest {
     }
 
     @Test
-    public void should_return_error_message_when_park_car_into_parking_lot_without_position() {
+    public void should_return_error_message_when_park_car_into_parking_lot_without_position() throws Exception{
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot[] parkingLotArray = new ParkingLot[]{firstParkingLot};
         ParkingLots parkingLots = new ParkingLots(parkingLotArray);
@@ -173,11 +174,12 @@ public class ParkingBoyTest {
         }
         Car overflowCar = new Car();
 
-        assertThat(parkingBoy.park(overflowCar).getMessage(), is("Not enough position."));
+        Exception ParkingLotNotPositionException = Assertions.assertThrows(ParkingLotNotPositionException.class,()->parkingBoy.park(overflowCar));
+        assertSame("Not enough position.", ParkingLotNotPositionException.getMessage());
     }
 
     @Test
-    public void should_return_the_second_parking_lot_when_the_first_parking_lot_is_full() {
+    public void should_return_the_second_parking_lot_when_the_first_parking_lot_is_full() throws Exception{
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot secondParkingLot = new ParkingLot(8);
         ParkingLot thirdParkingLot = new ParkingLot(10);
@@ -185,7 +187,7 @@ public class ParkingBoyTest {
         ParkingLots parkingLots = new ParkingLots(parkingLotArray);
         ParkingBoy parkingBoy = new ParkingBoy(parkingLots, "EL0315");
 
-        for(int i = 0; i < 10; i ++) {
+        for(int i = 0; i < 5; i ++) {
             Car car = new Car();
             parkingBoy.park(car);
         }

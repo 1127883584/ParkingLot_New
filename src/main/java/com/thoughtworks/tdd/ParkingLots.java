@@ -16,7 +16,7 @@ public class ParkingLots {
         generateEveryParkingLot(parkingLotArray);
     }
 
-    public ParkCarResult park(Car car, ServiceManager serviceManager){
+    public ParkCarResult park(Car car, ServiceManager serviceManager) throws Exception {
         ParkCarResult parkCarResult = new ParkCarResult();
         for (Integer key : parkinglots.keySet()) {
             ParkingLot parkingLot = parkinglots.get(key);
@@ -24,6 +24,7 @@ public class ParkingLots {
                 if (parkingLot.getParkingCarTicket().size() == parkingLot.getCapacity()) {
                     parkCarResult.setTicket(null);
                     parkCarResult.setMessage("Not enough position.");
+                    throw new ParkingLotNotPositionException("Not enough position.");
                 } else {
                     if (car == null || parkingLot.getParkingCarTicket().containsValue(car)) {
                         parkCarResult.setTicket(null);
@@ -41,13 +42,16 @@ public class ParkingLots {
         return parkCarResult;
     }
 
-    public ParkCarResult park(Car car){
+    public ParkCarResult park(Car car) throws Exception{
         ParkCarResult parkCarResult = new ParkCarResult();
         for (Integer key : parkinglots.keySet()) {
             ParkingLot parkingLot = parkinglots.get(key);
             if (parkingLot.getParkingCarTicket().size() == parkingLot.getCapacity()) {
                 parkCarResult.setTicket(null);
                 parkCarResult.setMessage("Not enough position.");
+                if (key == parkinglots.size() - 1) {
+                    throw new ParkingLotNotPositionException("Not enough position.");
+                }
             } else {
                 if (car == null || parkingLot.getParkingCarTicket().containsValue(car)) {
                     parkCarResult.setTicket(null);
@@ -64,7 +68,7 @@ public class ParkingLots {
         return parkCarResult;
     }
 
-    public GetCarResult getCar(Ticket ticket, ServiceManager serviceManager) {
+    public GetCarResult getCar(Ticket ticket, ServiceManager serviceManager) throws Exception {
         GetCarResult getCarResult = new GetCarResult();
         if (ticket == null) {
             getCarResult.setCar(null);
@@ -76,6 +80,7 @@ public class ParkingLots {
                 getCarResult.setCar(car);
                 if (car == null) {
                     getCarResult.setMessage("Unrecognized parking ticket.");
+                    throw new WrongTicketException("Unrecognized parking ticket.");
                 } else {
                     parkingLot.getParkingCarTicket().remove(ticket);
                     getCarResult.setMessage("Success fetch the car.");
@@ -88,7 +93,7 @@ public class ParkingLots {
         return getCarResult;
     }
 
-    public GetCarResult getCar(Ticket ticket) throws WrongTicketException {
+    public GetCarResult getCar(Ticket ticket) throws Exception {
         GetCarResult getCarResult = new GetCarResult();
         if (ticket == null) {
             getCarResult.setCar(null);
@@ -98,7 +103,7 @@ public class ParkingLots {
             Car car = parkingLot.getParkingCarTicket().get(ticket);
             getCarResult.setCar(car);
             if (car == null) {
-//                getCarResult.setMessage("Unrecognized parking ticket.");
+                getCarResult.setMessage("Unrecognized parking ticket.");
                 throw new WrongTicketException("Unrecognized parking ticket.");
             } else {
                 parkingLot.getParkingCarTicket().remove(ticket);
@@ -109,7 +114,7 @@ public class ParkingLots {
         return getCarResult;
     }
 
-    public ParkCarResult smartPark(Car car){
+    public ParkCarResult smartPark(Car car)throws Exception{
         ParkCarResult parkCarResult = new ParkCarResult();
         int[] remainingCapacity = new int[capacity];
         Arrays.fill(remainingCapacity, parkingLotCapacity);
@@ -121,6 +126,7 @@ public class ParkingLots {
             if (parkingLot.getParkingCarTicket().size() == parkingLot.getCapacity()) {
                 parkCarResult.setTicket(null);
                 parkCarResult.setMessage("Not enough position.");
+                throw new ParkingLotNotPositionException("Not enough position.");
             } else {
                 if (car == null || parkingLot.getParkingCarTicket().containsValue(car)) {
                     parkCarResult.setTicket(null);
@@ -139,7 +145,7 @@ public class ParkingLots {
         return parkCarResult;
     }
 
-    public ParkCarResult superSmartPark(Car car){
+    public ParkCarResult superSmartPark(Car car) throws Exception{
         ParkCarResult parkCarResult = new ParkCarResult();
         double[] availablePositionRate = new double[capacity];
         Arrays.fill(availablePositionRate, 1);
@@ -151,6 +157,7 @@ public class ParkingLots {
             if (parkingLot.getParkingCarTicket().size() == parkingLot.getCapacity()) {
                 parkCarResult.setTicket(null);
                 parkCarResult.setMessage("Not enough position.");
+                throw new ParkingLotNotPositionException("Not enough position.");
             } else {
                 if (car == null || parkingLot.getParkingCarTicket().containsValue(car)) {
                     parkCarResult.setTicket(null);
@@ -169,7 +176,7 @@ public class ParkingLots {
         return parkCarResult;
     }
 
-    public void generateEveryParkingLot(ParkingLot[] parkingLotArray) {
+    public void generateEveryParkingLot(ParkingLot[] parkingLotArray){
         for (int i = 0; i < parkingLotArray.length; i ++) {
             parkinglots.put(i, parkingLotArray[i]);
         }

@@ -5,7 +5,7 @@ public class SuperSmartParkingBoy extends SmartParkingBoy {
         super(parkingLots, id);
     }
 
-    public ParkCarResult park(Car car) {
+    public ParkCarResult park(Car car) throws Exception {
         return super.getParkingLots().superSmartPark(car);
     }
 }

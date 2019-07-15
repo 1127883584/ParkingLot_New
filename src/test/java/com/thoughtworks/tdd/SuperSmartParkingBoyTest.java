@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class SuperSmartParkingBoyTest {
     @Test
-    public void should_return_the_right_parking_lot_id_when_the_super_smart_parking_boy_part_car() {
+    public void should_return_the_right_parking_lot_id_when_the_super_smart_parking_boy_part_car() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot secondParkingLot = new ParkingLot(8);
         ParkingLot thirdParkingLot = new ParkingLot(10);

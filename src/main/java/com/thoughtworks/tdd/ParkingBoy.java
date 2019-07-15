@@ -19,22 +19,22 @@ public class ParkingBoy {
         return id;
     }
 
-    public ParkCarResult park(Car car) {
+    public ParkCarResult park(Car car) throws Exception {
         ParkCarResult parkCarResult = parkingLots.park(car);
         return parkCarResult;
     }
 
-    public ParkCarResult park(Car car, ServiceManager serviceManager) {
+    public ParkCarResult park(Car car, ServiceManager serviceManager) throws Exception {
         ParkCarResult parkCarResult = parkingLots.park(car, serviceManager);
         return parkCarResult;
     }
 
-    public GetCarResult fetch(Ticket ticket) throws WrongTicketException {
+    public GetCarResult fetch(Ticket ticket) throws Exception {
         GetCarResult getCarResult = parkingLots.getCar(ticket);
         return getCarResult;
     }
 
-    public GetCarResult fetch(Ticket ticket, ServiceManager serviceManager){
+    public GetCarResult fetch(Ticket ticket, ServiceManager serviceManager) throws Exception {
         GetCarResult getCarResult = parkingLots.getCar(ticket, serviceManager);
         return getCarResult;
     }

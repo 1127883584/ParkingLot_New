@@ -1,12 +1,13 @@
 package com.thoughtworks.tdd;
 
+import com.thoughtworks.exception.WrongTicketException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public class ServiceManageTest {
     @Test
-    public void should_return_the_right_parking_lot_id_when_the_manager_order_parking_boy_to_park_car() {
+    public void should_return_the_right_parking_lot_id_when_the_manager_order_parking_boy_to_park_car() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot secondParkingLot = new ParkingLot(8);
         ParkingLot thirdParkingLot = new ParkingLot(10);
@@ -33,7 +34,7 @@ public class ServiceManageTest {
     }
 
     @Test
-    public void should_return_the_right_car_when_the_manager_order_parking_boy_to_fetch_car() {
+    public void should_return_the_right_car_when_the_manager_order_parking_boy_to_fetch_car() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot secondParkingLot = new ParkingLot(8);
         ParkingLot thirdParkingLot = new ParkingLot(10);
@@ -63,7 +64,7 @@ public class ServiceManageTest {
     }
 
     @Test
-    public void should_return_error_message_when_the_manager_order_parking_boy_to_fetch_car_not_in_manage_parking_lot() {
+    public void should_return_error_message_when_the_manager_order_parking_boy_to_fetch_car_not_in_manage_parking_lot() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot secondParkingLot = new ParkingLot(8);
         ParkingLot thirdParkingLot = new ParkingLot(10);
@@ -93,7 +94,7 @@ public class ServiceManageTest {
     }
 
     @Test
-    public void should_return_the_right_car_when_the_manager_fetch_car() {
+    public void should_return_the_right_car_when_the_manager_fetch_car() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot secondParkingLot = new ParkingLot(8);
         ParkingLot thirdParkingLot = new ParkingLot(10);
@@ -115,7 +116,7 @@ public class ServiceManageTest {
     }
 
     @Test
-    public void should_return_error_message_when_the_manager_fetch_car_not_in_manage_parking_lot() {
+    public void should_return_error_message_when_the_manager_fetch_car_not_in_manage_parking_lot() throws Exception {
         ParkingLot firstParkingLot = new ParkingLot(5);
         ParkingLot secondParkingLot = new ParkingLot(8);
         ParkingLot thirdParkingLot = new ParkingLot(10);
